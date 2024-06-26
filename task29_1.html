@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <from>
+      <input id="name" />
+      <button id="search">Search</button>
+    </from>
+    <br />
+    <br />
+    <div>
+      <img id="pokimage" src="" />
+    </div>
+    <script>
+      var pokename = document.getElementById("name");
+      var search = document.getElementById("search");
+      var pokimage = document.getElementById("pokimage");
+      search.onclick = () => {
+        fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokename.value.toLowerCase()}`
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Sorry, something went worng!");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            var x = data.sprites.other.showdown.front_default;
+            console.log(x);
+            pokimage.src = x;
+          });
+      };
+    </script>
+  </body>
+</html>
